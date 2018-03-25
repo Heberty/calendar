@@ -1,0 +1,29 @@
+body {
+	font-family: 'Lato', sans-serif;
+	background: url(img/bg-mac.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+table {
+	text-align: center;
+	font-size: 14px;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+
+	background-color: #25252599;
+}
+
+td {
+    padding: 10px;
+    color: #FFF;
+}
+
+td:hover {
+	background-color: #a5a5a599;
+}
+h1 {
+	text-align: center;    
+	color: #fff;
+    text-shadow: 1px 1px rgba(0,0,0,.5);
+}
