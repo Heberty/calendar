@@ -30,18 +30,30 @@ setlocale( LC_ALL, 'pt_BR', 'pt_BR.iso-8859-1', 'pt_BR.utf-8', 'portuguese' );
 date_default_timezone_set( 'America/Sao_Paulo' );
 
 $month 				= empty($_GET['mes']) ? date('m') : $_GET['mes'];
-$currentMonth 		= strtotime($month . "/01/" . date('Y'));
-$currentMonthName 	= strtotime(($month+1) . "/01/" . date('Y'));
-$daysOfMonth 		= cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
+$year 				= empty($_GET['ano']) ? date('Y') : $_GET['ano'];
+$currentMonth 		= strtotime($month . "/01/" . $year);
+$daysOfMonth 		= cal_days_in_month(CAL_GREGORIAN, $month, $year);
 $firstDayWeek 		= date('w', $currentMonth);
-$currentDay 		= date('d', strtotime($daysOfMonth));
+$todayDay	 		= date('d');
+$todayMonth			= date('n');
+
+$prevYear 			= $year;
+$nextYear 			= $year;
+
+if ($month-1 < 1) {
+	$prevYear--;
+}
+if ($month+1 > 12) {
+	$nextYear++;
+}
+
 
 
 echo '<div class="container">';
 echo '<div class="row d-flex align-items-center justify-content-end">';
 
 echo '<table class="col-12">';
-echo '<h1>' . strftime('%B', $currentMonthName) . ' de ' . date('Y') . '</h1>';
+echo '<h1>' . strftime('%B', $currentMonth) . ' de ' . $year . '</h1>';
 	echo '<tr>';
 
 		for ($i=1; $i <= 7; $i++) { 
@@ -57,7 +69,7 @@ echo '<h1>' . strftime('%B', $currentMonthName) . ' de ' . date('Y') . '</h1>';
 
 		for ($i=1; $i <= $daysOfMonth; $i++) { 
 
-			if ($i == $currentDay) {
+			if ($i == $todayDay	 && $month == $todayMonth) {
 				echo '<td style="background-color: #a5a5a599"; color: #fff>' . $i . '</td>';
 			} else {
 				echo '<td>'. $i . '</td>';
@@ -75,8 +87,8 @@ echo '<h1>' . strftime('%B', $currentMonthName) . ' de ' . date('Y') . '</h1>';
 
 echo '</table>';
 echo '<div class="arrows">';
-echo '<a href="?mes='. ($month-1) .'"><i class="fa fa-angle-left"></i></a>';
-echo '<a href="?mes='. ($month+1) .'"><i class="fa fa-angle-right"></i></a>';
+echo '<a href="?mes='. ($month-1 < 1 ? 12 : $month-1) .'&ano='. $prevYear .'"><i class="fa fa-angle-left"></i></a>';
+echo '<a href="?mes='. ($month+1 > 12 ? 1 : $month+1) .'&ano='. $nextYear .'"><i class="fa fa-angle-right"></i></a>';
 echo '</div>';
 echo '</div>';
 echo '</div>';
