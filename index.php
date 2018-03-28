@@ -3,7 +3,7 @@
 <head>
 	<title></title>
 	<?php
-	header('Content-Type: text/html; charset=ISO-8859-1');
+	header('Content-Type: text/html; charset=UTF-8');
 	?>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -14,8 +14,6 @@
 <body>
 
 <?php  
-
-ini_set('default_charset','UTF-8');
 
 $daysOfWeeks = [
 
@@ -28,40 +26,22 @@ $daysOfWeeks = [
 	7 => 'Sab'
 ];
 
-// $months = [
-
-// 	01 => 'Janeiro',
-// 	02 => 'Fevereiro',
-// 	03 => 'Março',
-// 	04 => 'Abril',
-// 	05 => 'Maio',
-// 	06 => 'Junho',
-// 	07 => 'Julho',
-// 	08 => 'Agosto',
-// 	09 => 'Setembro',
-// 	10 => 'Outubro',
-// 	11 => 'Novembro',
-// 	12 => 'Dezembro'
-// ];
-
-
-
-$month = date('m');
-$day = date('d');
-$year = date('Y');
-$currentMonth = isset($_GET['mes']) ? trim($_GET['mes']) : $month;
-$firstDayWeek = date('w', strtotime($currentMonth . "/01/" . $year));
-$daysOfMonth = cal_days_in_month(CAL_GREGORIAN, $currentMonth, $year);
-$currentDay = date('d', strtotime($daysOfMonth));
-echo $currentDay;
 setlocale( LC_ALL, 'pt_BR', 'pt_BR.iso-8859-1', 'pt_BR.utf-8', 'portuguese' );
 date_default_timezone_set( 'America/Sao_Paulo' );
-// $month = strftime('%B');
+
+$month 				= empty($_GET['mes']) ? date('m') : $_GET['mes'];
+$currentMonth 		= strtotime($month . "/01/" . date('Y'));
+$currentMonthName 	= strtotime(($month+1) . "/01/" . date('Y'));
+$daysOfMonth 		= cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
+$firstDayWeek 		= date('w', $currentMonth);
+$currentDay 		= date('d', strtotime($daysOfMonth));
+
+
 echo '<div class="container">';
 echo '<div class="row d-flex align-items-center justify-content-end">';
 
 echo '<table class="col-12">';
-echo '<h1>' . strftime('%B') . ' de ' . $year . '</h1>';
+echo '<h1>' . strftime('%B', $currentMonthName) . ' de ' . date('Y') . '</h1>';
 	echo '<tr>';
 
 		for ($i=1; $i <= 7; $i++) { 
@@ -95,8 +75,8 @@ echo '<h1>' . strftime('%B') . ' de ' . $year . '</h1>';
 
 echo '</table>';
 echo '<div class="arrows">';
-echo '<a href="?mes='. ($currentMonth-1) .'"><i class="fa fa-angle-left"></i></a>';
-echo '<a href="?mes='. ($currentMonth+1) .'""><i class="fa fa-angle-right"></i></a>';
+echo '<a href="?mes='. ($month-1) .'"><i class="fa fa-angle-left"></i></a>';
+echo '<a href="?mes='. ($month+1) .'"><i class="fa fa-angle-right"></i></a>';
 echo '</div>';
 echo '</div>';
 echo '</div>';
