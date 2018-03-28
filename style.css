@@ -10,7 +10,7 @@ table {
 	font-size: 14px;
 	border-top: 1px solid #fff;
 	border-bottom: 1px solid #fff;
-
+	color: #fff;
 	background-color: #25252599;
 }
 
@@ -26,4 +26,18 @@ h1 {
 	text-align: center;    
 	color: #fff;
     text-shadow: 1px 1px rgba(0,0,0,.5);
+}
+
+.arrows {
+	float: right;
+}
+
+a {
+	color: #fff;
+    text-shadow: 1px 1px rgba(0,0,0,.5);
+    font-size: 40px;
+}
+
+a:hover {
+	color: #fff;
 }
